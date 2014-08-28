@@ -6,11 +6,14 @@ library("arm")
 library("foreign")
 
 
-setwd("/home/likewise-open/HYPERATIVANET/Diretorio_Hyperativa/H-Hyperativa/analytics/MRP")
+setwd("D:\\2014\\modelo eleicoes\\exemplo")
 #read in megapoll and attach
 marriage.data <- read.dta("gay_marriage_megapoll.dta", convert.underscore = TRUE) 
 head(marriage.data)
 tail(marriage.data)
+
+tmp <- subset(marriage.data , poll == "Gall2005Aug22")
+
 #read in state-level dataset
 
 Statelevel <- read.dta("state_level_update.dta",convert.underscore = TRUE)
@@ -86,14 +89,12 @@ statepred
 
 ### Processando dados
 
-install.packages("repmis")
-
 library("foreign")
 
 
 
 
-setwd("/home/likewise-open/HYPERATIVANET/Diretorio_Hyperativa/H-Hyperativa/analytics/MRP/dados")
+setwd("D:\\2014\\modelo eleicoes\\dados")
 
 ## data primeiro poll Data: 17 e 18/09/98
 df1 <- read.spss("00870.SAV", to.data.frame=TRUE, reencode='UTF-8')
@@ -101,9 +102,18 @@ head(df1)
 names(df1)[c(5:12)] <- c("votoEspont", "votoEstim", "NumCandidato", "votoEstim2Turno", 
                          "rejeicao1", "rejeicao2", "rejeicao3", "rejeicao4")
 
+df1[duplicated(df1$NQUEST), ]
+
+subset(df1, NQUEST == 1431)
+
 names(df1)[21] <- "avaliacaoQualiIncumbente"
 names(df1)[22] <- "avaliacaoQuantIncumbente"
-
+df1$instituto <- "DataFolha"
+df1$dataPesquisaInit <- as.Date("17/09/98", "%d/%m/%y")
+df1$dataPesquisaFim <- as.Date("18/09/98", "%d/%m/%y")
+df1$pesquisa <- "DataFolha9817Set"
+df1$anoPesquisa <- 1998
+df1$id <- 1
 
 df2 <- read.spss("00873.SAV", to.data.frame=TRUE, reencode='UTF-8')
 head(df2)
@@ -114,3 +124,28 @@ names(df2)[c(5:7, 9:13)] <- c("votoEspont", "votoEstim", "NumCandidato", "votoEs
 
 names(df1)[21] <- "avaliacaoQualiIncumbente"
 names(df1)[22] <- "avaliacaoQuantIncumbente"
+df2$instituto <- "DataFolha"
+df2$pesquisa <- "DataFolha98ddMes"
+#df2$dataPesquisaInit <- as.Date("17/09/98", "%d/%m/%y")
+#df2$dataPesquisaFim <- as.Date("18/09/98", "%d/%m/%y")
+
+df3 <- read.spss("BD_CIS0156.sav", to.data.frame=TRUE, reencode='UTF-8')
+df3$instituto <- "DataFolha"
+df3$dataPesquisaInit <- as.Date("08/08/98", "%d/%m/%y")
+df3$dataPesquisaFim <- as.Date("09/08/98", "%d/%m/%y")
+df3$pesquisa <- "DataFolha9808Ago"
+# df4 <- read.spss("BD_CIS0154_Brasil.sav", to.data.frame=TRUE, reencode='UTF-8')
+# df4$instituto <- "DataFolha"
+# df4$dataPesquisaInit <- as.Date("17/09/98", "%d/%m/%y")
+# df4$dataPesquisaFim <- as.Date("17/09/98", "%d/%m/%y")
+
+
+df5 <- read.spss("BD_CIS0149.sav", to.data.frame=TRUE, reencode='UTF-8')
+df5$instituto <- "DataFolha"
+df5$dataPesquisaInit <- as.Date("14/09/98", "%d/%m/%y")
+df5$dataPesquisaFim <- as.Date("15/09/98", "%d/%m/%y")
+df5$pesquisa <- "DataFolha9814Set"
+# library(pscl)
+# data(RockTheVote)
+
+dataPoll98
