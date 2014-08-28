@@ -148,4 +148,10 @@ df5$pesquisa <- "DataFolha9814Set"
 # library(pscl)
 # data(RockTheVote)
 
+
+## PRecisamos criarum banco único
+## cada linha é uma resposta
+## e transformar categóricas em colunas
+## pra usar no Jags
+## Banco fica poll-respondente
 dataPoll98
